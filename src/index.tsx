@@ -1,15 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Home, Dashboard, SignIn } from './components'
+import { theme } from './Theme/themes';
+import {ThemeProvider } from '@mui/material/styles';
 import reportWebVitals from './reportWebVitals';
+import './styles.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Routes>
+          {/* The path is like the url, itll be www.whatever.com/path */}
+          <Route path='/' element = {<Home title = {'Album Inventory'}/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
+          <Route path='/signin' element={<SignIn/>}/>
+        </Routes>
+      </Router>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
