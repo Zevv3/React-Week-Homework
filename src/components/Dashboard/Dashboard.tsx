@@ -10,13 +10,19 @@ import { Drawer as MUIDrawer,
     Divider,
     Button,
     CssBaseline, 
-    Box
+    Box,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight,ChevronLeft } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../../Theme/themes";
 import { DataTable } from '../DataTable';
+import { AlbumForm } from '../AlbumForm';
 
 const drawerWidth = 200;
 
@@ -92,12 +98,21 @@ export const Dashboard = () => {
     // if you see "useSomething" the use is a good indicater in react that it is a hook (god I suck at making sentences)
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
+
     const handleDrawerOpen = () =>{
         setOpen(true);
     };
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const handleDialogClickOpen = () => {
+        setDialogOpen(true);
+    };
+    const handleDialogClickClose = () => {
+        setDialogOpen(false);
+    };
+
     const itemsList = [
         {
             text:'Home',
@@ -108,6 +123,7 @@ export const Dashboard = () => {
             onClick: () => navigate('/signin')
         },
     ]
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -126,7 +142,17 @@ export const Dashboard = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant='h6' noWrap>Dashboard</Typography>
-                    <Button sx = { myStyles.toolbar_button }>Add An Album</Button>
+                    <Button sx = { myStyles.toolbar_button } onClick={handleDialogClickOpen}>Add An Album</Button>
+                    <Dialog open={dialogOpen} onClose={handleDialogClickClose} aria-labelledby='form-dialog-title'>
+                        <DialogTitle id='form-dialog-title'>Add New Album</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>Add A New Album</DialogContentText>
+                            <AlbumForm />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick = {handleDialogClickClose} color = 'primary'>Cancel</Button>
+                        </DialogActions>
+                    </Dialog>
                 </Toolbar>
             </AppBar>
             <MUIDrawer

@@ -68,7 +68,6 @@ export const Home = (props:Props) => {
         <Root>
             <NavbarContainer>
                 <Logo>
-                    {/* to is from Link, same as href=url */}
                     <LogoA to="/">Brand</LogoA>
                 </Logo>
                 <LogoNavigation>
@@ -80,6 +79,9 @@ export const Home = (props:Props) => {
                     </li>
                     <li>
                         <NavA to="/signin">Sign In</NavA>
+                    </li>
+                    <li>
+                        <NavA to="/signup">Sign Up</NavA>
                     </li>
                 </LogoNavigation>
             </NavbarContainer>
