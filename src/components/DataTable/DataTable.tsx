@@ -71,6 +71,7 @@ export const DataTable = () => {
       setOpen(false);
     };
     let deleteData = () => {
+      console.log(`${gridData[0]}`);
       serverCalls.delete(`${gridData[0]}`);
       getData()
     };

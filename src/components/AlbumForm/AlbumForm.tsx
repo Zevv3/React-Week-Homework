@@ -33,15 +33,19 @@ export const AlbumForm = (props:AlbumFormProps) => {
     const store = useStore();
     const { register, handleSubmit } = useForm({  });
 
-    const onSubmit = async (data:any, event:any) => {
+    const onSubmit = async (data:any={}, event:any) => {
         if(props.id!){
             await serverCalls.update(props.id!, data);
             console.log(`Updated: ${data} ${props.id}`);
             window.location.reload();
         } else {
-            dispatch(chooseTitle(data.albumTitle));
-            dispatch(chooseArtist(data.artistName));
+            dispatch(chooseTitle(data.album_title));
+            dispatch(chooseArtist(data.artist_name));
             dispatch(chooseYear(data.year));
+            dispatch(chooseGenre(data.genre));
+            dispatch(chooseTracks(data.number_of_tracks));
+            dispatch(chooseLabel(data.label));
+            console.log(store.getState());
             await serverCalls.create(store.getState());
             window.location.reload();
         };
@@ -51,11 +55,11 @@ export const AlbumForm = (props:AlbumFormProps) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label htmlFor="album_title">Album Title</label>
-                    <Input {...register('album_title')} name='albumTitle' placeholder='Album Title' />
+                    <Input {...register('album_title')} name='album_title' placeholder='Album Title' />
                 </div>
                 <div>
                     <label htmlFor="artist_name">Artist Name</label>
-                    <Input {...register('artist_name')} name='artistName' placeholder='Artist Name' />
+                    <Input {...register('artist_name')} name='artist_name' placeholder='Artist Name' />
                 </div>
                 <div>
                     <label htmlFor="year">Year Released</label>
@@ -67,7 +71,7 @@ export const AlbumForm = (props:AlbumFormProps) => {
                 </div>
                 <div>
                     <label htmlFor="number_of_tracks">Number of Tracks</label>
-                    <Input {...register('number_of_tracks')} name='tracks' placeholder='Number of Tracks' />
+                    <Input {...register('number_of_tracks')} name='number_of_tracks' placeholder='Number of Tracks' />
                 </div>
                 <div>
                     <label htmlFor="label">Label</label>
